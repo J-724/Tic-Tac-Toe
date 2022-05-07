@@ -1,0 +1,15 @@
+.gameboard {
+    background-color: antiquewhite;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows:  repeat(3, 1fr);
+    width: 300px;
+    height: 300px;
+}
+
+.gameboard-cell{
+    outline: 1px solid rgba(49, 49, 49, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
