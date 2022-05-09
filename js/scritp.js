@@ -5,7 +5,7 @@ const gameFeatures = (() => {
 
     _gameBoardCell.forEach((cell)=>
         cell.addEventListener("click", (e) => {
-            if (cell.textContent !== "") return;
+            if ((cell.textContent !== "")||(gameController.gameOver)) return;
             gameController.showMovement(cell);
             gameBoard.cellsContentArray(cell.dataset.index, cell.textContent);
         })
@@ -15,10 +15,18 @@ const gameFeatures = (() => {
         _gameBoardCell.forEach((cell)=>{
             cell.textContent = "";
             gameBoard.restart(cell.dataset.index);
-
         })
+        _message.textContent = "";
+        gameController.gameOver = false;
     });
 
+    const showWinner = (winner) => {
+        console.log(winner);
+        _message.textContent= winner;
+        gameController.gameOver = true;
+    };
+
+    return {showWinner};
 })();
 
 const gameBoard = (()=>{
@@ -66,6 +74,7 @@ const gameController = (() => {
         let b = " ";
         let c = " ";
 
+        console.log(cellsArray);
         const winConditions = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8],    // Rows win combinations
             [0, 3, 6], [1, 4, 7], [2, 5, 8],    // Columns win combinations
@@ -73,11 +82,6 @@ const gameController = (() => {
         ];
 
         if (round>=5){
-            console.log(cellsArray);
-
-            if (round>=9) {
-                return console.log("It's Draw");
-            }
             for (let i = 0; i < winConditions.length; i++){          
                 a = winConditions[i][0];
                 b = winConditions[i][1];
@@ -89,15 +93,20 @@ const gameController = (() => {
                     &&(cellsArray[b])
                     &&(cellsArray[c])){  
                     
-                    console.log(cellsArray[a]);
-                    console.log(cellsArray[b]);
-                    console.log(cellsArray[c]);      
-                    return console.log(`The winner is ${cellsArray[a]}`);;
+                    gameFeatures.showWinner(` The winner is ${cellsArray[a]}`);
+                    round=0;   
+                    return ;
                 };
             };
+            if (round>=9) {
+                gameFeatures.showWinner("It's Draw");
+                round=0;
+                return;
+            }
         }
-        // Implement Draw
+
+        
     };
 
-    return { gameOver, showMovement, checkWinner};
+    return { gameOver, round, showMovement, checkWinner};
 })();
