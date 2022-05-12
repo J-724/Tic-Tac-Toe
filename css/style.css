@@ -1,15 +1,66 @@
-.gameboard {
-    background-color: antiquewhite;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows:  repeat(3, 1fr);
-    width: 300px;
-    height: 300px;
+*{
+    box-sizing: border-box;
 }
 
-.gameboard-cell{
-    outline: 1px solid rgba(49, 49, 49, 0.3);
+.layout{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: max(10vh, 120px);
+    grid-template-areas: 
+        "header"
+        "body";
+}
+
+.header{
+    grid-area: header;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.game-wrapper{
+    grid-area: body;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.message{
+    height: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.gameboard {
+    background-color: antiquewhite;
+    border: 3px solid  rgba(185, 124, 37, 0.5);
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows:  repeat(3, 1fr);
+    width: 350px;
+    height: 350px;
+}
+
+.gameboard-cell{
+    outline: 1px solid rgba(185, 124, 37, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+}
+
+button {
+    appearance: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(185, 124, 37);
+    background-color: antiquewhite ;
+}
+
+button:hover {
+    scale: 1.1;
+    background-color: rgb(236, 209, 170, 0.7) ;
 }
